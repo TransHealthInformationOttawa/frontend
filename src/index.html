@@ -19,21 +19,27 @@
       <script src="js/objects.js"></script>
       <script src="js/apiqueries.js"></script>
       <script src="js/uilogic.js"></script>
+      <script src="js/index.js"></script>
+      <style>
+          .invisiblePage {display: none;}
+      </style>
   </head>
   <body>
 
     <div class="container">
 
       <div class="page-header">
-        <h1>Text Messsaging Service</h1>
+        <h1>Text Messaging Service</h1>
       </div>
 
+ <div id="peopleListPage">
+     
       <!-- List people -->
 
       <div class="panel panel-default">
         <div class="panel-heading">List of Peer Supporters</div>
       
-        <table class="table">
+        <table class="table" id="peopleTable">
           <thead>
             <tr>
               <th>Name</th>
@@ -71,49 +77,14 @@
         </table>
       </div>
 
-       <!-- List messages -->
-
-       <div class="panel panel-default">
-          <div class="panel-heading">List of Messages for 
-            <span id="listMessagesPersonName"></span>
-          </div>
-        
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Message</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>You're an amazing person.</td>
-                <td>
-                  <button type="button" class="btn btn-success">
-                    Edit
-                  </button>
-                  <button type="button" class="btn btn-danger">
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary btn-lg" 
-      data-toggle="modal" data-target="#messageModal">
-        Add a New Message
-      </button>
-
-      <!-- Button trigger modal -->
+    <!-- Button trigger modal -->
       <button type="button" class="btn btn-primary btn-lg" 
       data-toggle="modal" data-target="#addPersonModal">
         Add Peer Supporter
       </button>
      
-      <!-- Add or Edit a person -->
+           
+    <!-- Add or Edit a person -->
       <div class="modal fade"  id="addPersonModal">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -152,6 +123,52 @@
         </div>
       </div>
 
+</div>
+<div id="messageListPage" class="invisiblePage">
+<button type="button" class="btn btn-secondary" onclick="openPeopleList()">
+   <span class="glyphicon glyphicon-arrow-left"></span>
+    List of Peer Supporters
+</button>
+      
+      
+       <!-- List messages -->
+
+       <div class="panel panel-default">
+          <div class="panel-heading" id="messageListTitle">List of Messages for 
+            <span id="listMessagesPersonName"></span>
+          </div>
+        
+          <table class="table" id="messagesTable">
+            <thead>
+              <tr>
+                <th>Message</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>You're an amazing person.</td>
+                <td>
+                  <button type="button" class="btn btn-success">
+                    Edit
+                  </button>
+                  <button type="button" class="btn btn-danger">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+     
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary btn-lg" 
+      data-toggle="modal" data-target="#messageModal">
+        Add a New Message
+      </button>
+
+
        <!-- Add or Edit a message -->
        <div class="modal fade"  id="messageModal">
           <div class="modal-dialog" role="document">
@@ -178,6 +195,8 @@
             </div>
           </div>
         </div>
-
+    </div>
+</div>
+ 
   </body>
 </html>
