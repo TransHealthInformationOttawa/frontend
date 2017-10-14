@@ -4,6 +4,10 @@ function apiUrl(pathElements) {
   return API_URL + "/" + pathElements.join("/");
 }
 
+/**
+ * Makes a GET request to /people/
+ * @constructor
+ */
 function getPersons() {
   $.getJSON(apiUrl(["people"]))
     .done(function(json) {
@@ -15,6 +19,14 @@ function getPersons() {
   });
 }
 
+/**
+ * Makes a POST request to /people/
+ * @constructor
+ * @param {string} name - The person's name.
+ * @param {string} phoneNumber - The person's phone number.
+ * @param {scheduleObject[]} schedules - The person's schedule for messages.
+ * @param {messageObject[]} messages - The person's messages.
+ */
 function addPerson(name, phoneNumber, schedules, messages) {
   $.getJSON(apiUrl(["people"]), 
     personObject(name, phoneNumber, schedules, messages))
@@ -27,6 +39,16 @@ function addPerson(name, phoneNumber, schedules, messages) {
   });
 }
 
+
+/**
+ * Makes a POST request to /people/{id}
+ * @constructor
+ * @param {string} personId - The person's ID.
+ * @param {string} name - The person's name.
+ * @param {string} phoneNumber - The person's phone number.
+ * @param {scheduleObject[]} schedules - The person's schedule for messages.
+ * @param {messageObject[]} messages - The person's messages.
+ */
 function updatePerson(personId, phoneNumber, schedule, messages) {
   $.getJSON(apiUrl(["people", personId]),
     personObject(name, phoneNumber, schedule, messages))
@@ -39,6 +61,11 @@ function updatePerson(personId, phoneNumber, schedule, messages) {
   });
 }
 
+/**
+ * Makes a DELETE request to /people/{id}
+ * @constructor
+ * @param {string} personId - The person's ID.
+ */
 function deletePerson(personId) {
     $.ajax({
       url: apiUrl(["people", personId]),
@@ -53,6 +80,11 @@ function deletePerson(personId) {
   });
 }
 
+/**
+ * Makes a GET request to /people/{id}/messages
+ * @constructor
+ * @param {string} personId - The person's ID.
+ */
 function getMessages(personId) {
   $.getJSON(apiUrl(["people", personId, "messages"]))
     .done(function(json) {
@@ -64,6 +96,12 @@ function getMessages(personId) {
   });
 }
 
+/**
+ * Makes a POST request to /people/{id}/messages
+ * @constructor
+ * @param {string} personId - The person's ID.
+ * @param {string} messageText - The message to send.
+ */
 function addMessage(personId, messageText) {
   $.getJSON(apiUrl(["people", personId, "messages"]),
     messageObject(messageText))
@@ -76,6 +114,12 @@ function addMessage(personId, messageText) {
   });
 }
 
+/**
+ * Makes a DELETE request to /people/{id}/messages/{message id}
+ * @constructor
+ * @param {string} personId - The person's ID.
+ * @param {string} messageId - The message's ID.
+ */
 function deleteMessage(personId, messageId) {
   $.ajax({
     url: apiUrl(["people", personId, "messages", messageId]),
@@ -90,6 +134,13 @@ function deleteMessage(personId, messageId) {
 });
 }
 
+/**
+ * Makes a POST request to /people/{id}/messages/{message id}
+ * @constructor
+ * @param {string} personId - The person's ID.
+ * @param {string} messageId - The message's ID.
+ * @param {string} messageText - The message's updated text.
+ */
 function updateMessage(personId, messageId, messageText) {
   $.getJSON(apiUrl(["people", personId, "messages", messageId]),
     messageObject(messageText))
@@ -100,31 +151,4 @@ function updateMessage(personId, messageId, messageText) {
       var err = textStatus + ", " + error;
       updateMessageFailed(err);
   });
-}
-
-function personObject(name, phoneNumber, schedule, messages) {
-  return {
-    "name" : name,
-    "enabled" : true,
-    "phone": phoneNumber,
-    "schedule": schedule,
-    "messages": messages
-  }
-}
-
-function scheduleObject(year, dayOfWeek, month, dayOfMonth, hour, minute) {
-  return {
-    "year": year,
-    "dayOfWeek": dayOfWeek,
-    "month": month,
-    "dayOfMonth": dayOfMonth,
-    "hour": hour,
-    "minute": minute
-  }
-}
-
-function messageObject(messageText) {
-  return {
-    "message": messageText
-  }
 }
