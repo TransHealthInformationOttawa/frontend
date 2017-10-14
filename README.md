@@ -8,5 +8,5 @@ The command to run the front-end:
 
 ```
 sudo docker build -t frontend .
-sudo docker run -p 80:80 frontend
+sudo docker run -p 81:81 frontend
 ```

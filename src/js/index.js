@@ -29,29 +29,61 @@ var data = {
    ]
 };
 
-function openMessageList(ev){
+function openMessageList(personId){
     
-    document.getElementById("peopleListPage").classList.add("invisiblePage");
-    document.getElementById("messageListPage").classList.remove("invisiblePage");
-
-    
-    globalPersonID = ev.target.id.split("-")[1];
+    $("#peopleListPage").addClass("invisiblePage");
+    $("#messageListPage").removeClass("invisiblePage");
+    $("#scheduleListPage").addClass("invisiblePage");
 
     var person = data.people.find(function(item){
-        return (item.id == globalPersonID);
+        return (item.id == personId);
     });
-    document.getElementById("messageListTitle").textContent = "List of Messages for "+person.name;
-    
+
+    $("#messageListTitle").text("List of Messages for " + person.name);
+
     $("#messagesTable tbody").empty();
 
     person.messages.forEach(function(m){
         $("#messagesTable tbody").append('<tr>'
-            + '<td>' + m.message + '<td>'
+            + '<td>' + m.message + '</td>'
             + '<td>'
-                +'<button type="button" class="btn btn-success">'
+                +'<button type="button" class="btn btn-success"> '
                 +'Edit'
+            +'</button> '
+                +'<button type="button" class="btn btn-danger"> '
+                +'Delete'
             +'</button>'
-                +'<button type="button" class="btn btn-danger">'
+            +'</td>'
+        +'</tr>');
+    });
+}
+
+function openScheduleList(personId) {
+
+    $("#peopleListPage").addClass("invisiblePage");
+    $("#messageListPage").addClass("invisiblePage");
+    $("#scheduleListPage").removeClass("invisiblePage");
+
+    var person = data.people.find(function(item){
+        return (item.id == personId);
+    });
+
+    $("#scheduleListTitle").text("Schedule for " + person.name);
+
+    $("#scheduleTable tbody").empty();
+
+    person.schedule.forEach(function(s){
+        $("#scheduleTable tbody").append('<tr>'
+            + '<td>' + s.year + '</td>'
+            + '<td>' + s.dayOfWeek + '</td>'
+            + '<td>' + s.month + '</td>'
+            + '<td>' + s.hour + '</td>'
+            + '<td>' + s.minute + '</td>'
+            + '<td>'
+                +'<button type="button" class="btn btn-success"> '
+                +'Edit'
+            +'</button> '
+                +'<button type="button" class="btn btn-danger"> '
                 +'Delete'
             +'</button>'
             +'</td>'
@@ -62,53 +94,13 @@ function openMessageList(ev){
 //function 
 
 function openPeopleList(){
-    document.getElementById("messageListPage").classList.add("invisiblePage");
-    document.getElementById("peopleListPage").classList.remove("invisiblePage");
-    
-    
+    $("#peopleListPage").removeClass("invisiblePage");
+    $("#messageListPage").addClass("invisiblePage");
+    $("#scheduleListPage").addClass("invisiblePage");
 }
 
 $( document ).ready(function(){
    
-    $("#peopleTable tbody").empty();
-    
-    data.people.forEach(function(item){
-        
-        var icon = "remove";
-        if (item.enabled) {
-            icon = 'ok';
-        }
-        
-        $("#peopleTable tbody").append("<tr personId='" + item.id + "'><td>"+item.name+"</td>" +
-            "<td>"+item.phone+"</td>" +
-            '<td><span class="glyphicon glyphicon-'+icon+'" aria-hidden="true"></span></td>' +
-            '<td>'+item.messages.length+'</td>' +
-            '<td>'+
-                '<button type="button" class="btn btn-success personMessageButton"'+
-                    ' id="personMessages-'+item.id+'">'+
-                    '<span class="glyphicon glyphicon-envelope"></span>'+
-                    'Messages'+
-                '</button>'+
-                '<button type="button" class="btn btn-success"'+
-                    ' id="personSchedule-'+item.id+'">'+
-                    '<span class="glyphicon glyphicon-time"></span>'+
-                    'Schedule'+
-                '</button>'+
-                '<button type="button" class="btn btn-danger">'+
-                    '<span class="glyphicon glyphicon-trash"></span>'+
-                    'Delete'+
-                '</button>'+           
-            "</td></tr>");
-        
-//        document.getElementById('personMessages-'+item.id).onclick = openMessageList;
-//        document.getElementById('personSchedule-'+item.id).onclick = openSchedule;
-
-    });
-    
-    $(".personMessagesButton").click(function() {
-        var itemId = $( this ).parent().parent().attr("personId");
-        console.log(itemId);
-    })
-    
+    getPersons();
 });
 

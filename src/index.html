@@ -125,7 +125,8 @@
 
 </div>
 <div id="messageListPage" class="invisiblePage">
-<button type="button" class="btn btn-secondary" onclick="openPeopleList()">
+<button type="button" class="btn btn-secondary" onclick="openPeopleList()"
+  style="margin-bottom: 1em;">
    <span class="glyphicon glyphicon-arrow-left"></span>
     List of Peer Supporters
 </button>
@@ -195,6 +196,107 @@
             </div>
           </div>
         </div>
+    </div>
+
+     <!-- Add or Edit a schedule -->
+     <div class="modal fade"  id="scheduleModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add Schedule</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                  <label for="scheduleWeek" class="col-sm-2 control-label">Day of Week</label>
+                  <select class="form-control form-control-lg">
+                      <option value="*">Every Day</option>
+                      <option value="1">Monday</option>
+                      <option value="2">Tuesday</option>
+                      <option value="3">Wednesday</option>
+                      <option value="4">Thursday</option>
+                      <option value="5">Friday</option>
+                      <option value="6">Saturday</option>
+                      <option value="7">Sunday</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                      <label for="scheduleHour" class="col-sm-2 control-label">Hour</label>
+                      <input type="number" class="form-control" id="scheduleHour" 
+                        min="0" max="23" step="1" placeholder="0-23">
+                  </div>
+                  <div class="form-group">
+                      <label for="scheduleMinute" class="col-sm-2 control-label">Minute</label>
+                      <input type="number" class="form-control" id="scheduleMinute" 
+                        min="0" max="59" step="1" placeholder="0-59">
+                  </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">
+                Add schedule
+              </button>
+              <button type="button" class="btn btn-secondary" 
+                data-dismiss="modal">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  <div id="scheduleListPage" class="invisiblePage">
+      
+    <button type="button" class="btn btn-secondary" onclick="openPeopleList()"
+      style="margin-bottom: 1em;">
+       <span class="glyphicon glyphicon-arrow-left"></span>
+        List of Peer Supporters
+    </button>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" id="scheduleListTitle">Schedule for 
+          <span id="listMessagesPersonName"></span>
+        </div>
+      
+        <table class="table" id="scheduleTable">
+          <thead>
+            <tr>
+              <th>Message Sent At</th>
+              <th>Year</th>
+              <th>Day of Week</th>
+              <th>Month</th>
+              <th>Day of Month</th>
+              <th>Hour</th>
+              <th>Minute</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>*</td>
+              <td>Monday</td>
+              <td>*</td>
+              <td>*</td>
+              <td>15</td>
+              <td>00</td>
+              <td>
+                <button type="button" class="btn btn-success">
+                  Edit
+                </button>
+                <button type="button" class="btn btn-danger">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary btn-lg" 
+      data-toggle="modal" data-target="#scheduleModal">
+        Add a New Schedule
+      </button>
+    </div>
+
     </div>
 </div>
  
