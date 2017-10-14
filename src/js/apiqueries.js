@@ -6,36 +6,36 @@ function apiUrl(pathElements) {
 
 function getPersons() {
   $.getJSON(apiUrl(["people"]))
-    .done(function( json ) {
-      console.log( "JSON Data: " + json);
+    .done(function(json) {
+      getPersonsSuccess(json);
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ", " + error;
-      console.log( "Request Failed: " + err );
+      getPersonsFailed(err);
   });
 }
 
 function addPerson(name, phoneNumber, schedules, messages) {
   $.getJSON(apiUrl(["people"]), 
     personObject(name, phoneNumber, schedules, messages))
-    .done(function( json ) {
-      console.log( "JSON Data: " + json);
+    .done(function(json) {
+      addPersonSuccess(json);
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ", " + error;
-      console.log( "Request Failed: " + err );
+      addPersonFailed(error);
   });
 }
 
 function updatePerson(personId, phoneNumber, schedule, messages) {
   $.getJSON(apiUrl(["people", personId]),
     personObject(name, phoneNumber, schedule, messages))
-    .done(function( json ) {
-      console.log( "JSON Data: " + json);
+    .done(function(json) {
+      updatePersonSuccess(json);
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ", " + error;
-      console.log( "Request Failed: " + err );
+      updatePersonFailed(err);
   });
 }
 
@@ -43,32 +43,36 @@ function deletePerson(personId) {
     $.ajax({
       url: apiUrl(["people", personId]),
       type: 'DELETE',
-      success: function(result) {
-          // Do something with the result
-      }
+      success: function(json) {
+        deletePersonSuccess(json);
+      },
+      error: function( jqxhr, textStatus, error ) {
+        var err = textStatus + ", " + error;
+        deletePersonFailed(err);
+    }
   });
 }
 
 function getMessages(personId) {
   $.getJSON(apiUrl(["people", personId, "messages"]))
-    .done(function( json ) {
-      console.log( "JSON Data: " + json);
+    .done(function(json) {
+      getMessagesSuccess(json);
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ", " + error;
-      console.log( "Request Failed: " + err );
+      getMessagesFailed(err);
   });
 }
 
 function addMessage(personId, messageText) {
   $.getJSON(apiUrl(["people", personId, "messages"]),
     messageObject(messageText))
-    .done(function( json ) {
-      console.log( "JSON Data: " + json);
+    .done(function(json) {
+      addMessageSuccess(json);
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ", " + error;
-      console.log( "Request Failed: " + err );
+      addMessageFailed(error);
   });
 }
 
@@ -76,21 +80,25 @@ function deleteMessage(personId, messageId) {
   $.ajax({
     url: apiUrl(["people", personId, "messages", messageId]),
     type: 'DELETE',
-    success: function(result) {
-        // Do something with the result
-    }
+    success: function(json) {
+      deleteMessageSuccess(json);
+    },
+    error: function( jqxhr, textStatus, error ) {
+      var err = textStatus + ", " + error;
+      deleteMessageFailed(err);
+  }
 });
 }
 
 function updateMessage(personId, messageId, messageText) {
   $.getJSON(apiUrl(["people", personId, "messages", messageId]),
     messageObject(messageText))
-    .done(function( json ) {
-      console.log( "JSON Data: " + json);
+    .done(function(json) {
+      updateMessageSuccess(json);
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ", " + error;
-      console.log( "Request Failed: " + err );
+      updateMessageFailed(err);
   });
 }
 
