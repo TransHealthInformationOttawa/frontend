@@ -10,11 +10,18 @@ function personObject(name, phoneNumber, schedule, messages) {
 }
 
 function scheduleObject(year, dayOfWeek, month, dayOfMonth, hour, minute) {
-  return {
-    "dayOfWeek": dayOfWeek,
-    "hour": hour,
-    "minute": minute
-  }
+    if (dayOfWeek == "*") {
+        return {
+            "hour": hour,
+            "minute": minute
+        }
+    } else {
+      return {
+        "dayOfWeek": dayOfWeek,
+        "hour": hour,
+        "minute": minute
+      }
+    }
 }
 
 function messageObject(messageText) {
