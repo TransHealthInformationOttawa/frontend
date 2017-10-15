@@ -117,7 +117,7 @@ function openScheduleList(personId) {
 
     person.schedules.forEach(function(s){
         $("#scheduleTable tbody").append('<tr scheduleId="' + s.id + '">'
-            + '<td>' + s.year + '</td>'
+            + '<td>' + ( s.year == undefined ? "All" : s.year ) + '</td>'
             + '<td>' + s.dayOfWeek + '</td>'
             + '<td>' + s.month + '</td>'
             + '<td>' + s.dayOfMonth + '</td>'
