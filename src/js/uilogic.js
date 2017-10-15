@@ -14,8 +14,12 @@ function getPersonsSuccess_main(json) {
       $("#peopleTable tbody").append("<tr personId='" + item.id + "'><td>"+item.name+"</td>" +
           "<td>"+item.phone+"</td>" +
           '<td><span class="glyphicon glyphicon-' + icon + '" aria-hidden="true"></span></td>' +
-          '<td>'+item.messages.length+'</td>' +
-          '<td>'+
+          '<td><span class="badge">'+item.messages.length+'</span></td>' +
+          '<td>'
+            +'<button type="button" class="btn btn-default personEditButton"> '
+            +'<span class="glyphicon glyphicon-pencil"></span> '
+            +'Edit Name/Phone'
+            +'</button> '+
               '<button type="button" class="btn btn-default personMessageButton">'+
                   '<span class="glyphicon glyphicon-envelope"></span> '+
                   'Messages'+
@@ -24,7 +28,7 @@ function getPersonsSuccess_main(json) {
                   '<span class="glyphicon glyphicon-time"></span> '+
                   'Schedule'+
               '</button> '+
-              '<button type="button" class="btn btn-danger">'+
+              '<button type="button" class="btn btn-danger personDeleteButton">'+
                   '<span class="glyphicon glyphicon-trash"></span> '+
                   'Delete'+
               '</button>'+           
@@ -39,6 +43,24 @@ function getPersonsSuccess_main(json) {
   $(".personSchedule").click(function() {
       var itemId = $( this ).parent().parent().attr("personId");
       openScheduleList(itemId);
+  });
+
+  $(".personDeleteButton").click(function() {
+    var itemId = $( this ).parent().parent().attr("personId");
+    deletePerson(itemId);
+  });
+
+  $(".personEditButton").click(function() {
+    var itemId = $( this ).parent().parent().attr("personId");
+    var person = data.people.find(function(item){
+      return (item.id == itemId);
+  });
+  
+    $("#addPersonModal").modal();
+    $("#addPersonModal .modal-title").text("Edit Peer Supporter");
+    $("#addPersonModal .buttonAdd").text("Edit peer supporter");
+    $("#addPersonName").val(person.name);
+    $("#addPersonPhoneNumber").val(person.phone);
   });
 }
 
