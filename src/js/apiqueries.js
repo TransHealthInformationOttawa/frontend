@@ -14,6 +14,10 @@ function getPersons(callback, personId) {
       
       // *************************
       console.log(" get personS success ")
+
+      // setting data here
+      data.people = json;
+    
       
       if (callback == null){
           console.log ("main getpersonS success");

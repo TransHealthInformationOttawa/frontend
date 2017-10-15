@@ -2,9 +2,6 @@
 function getPersonsSuccess_main(json) {
     
 
-  data.people = json;
-    
-    
   $("#peopleTable tbody").empty();
   
   json.forEach(function(item){
