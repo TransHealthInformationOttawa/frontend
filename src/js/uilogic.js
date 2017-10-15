@@ -148,10 +148,6 @@ function getSchedulesFailed(error) {
   toastr.error("Failed to get schedules: " + error);
 }
 
-function addScheduleSuccess(json) {
-
-}
-
 function addScheduleFailed(error) {
   toastr.error("Failed to add schedule: " + error);
 }

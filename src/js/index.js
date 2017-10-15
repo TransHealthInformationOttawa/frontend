@@ -11,6 +11,8 @@ function submitPerson(){
 }
 
 function submitSchedule(){
+    console.log ("submit ched");
+    
     var dayOfWeek = $("#scheduleWeek").val();
     var hour = $("#scheduleHour").val();
     var minute = $("#scheduleMinute").val();
@@ -158,8 +160,8 @@ function openPeopleList(){
 
 function addScheduleButtonClick() {
     console.log("--- addScheduleButtonClick");
-    $("#scheduleModalTitle").text = "Add Schedule";
-    $("#scheduleSubmitButton").text = "Add";
+//    $("#scheduleModalTitle").text = "Add Schedule";
+//    $("#scheduleSubmitButton").text = "Add";
     
     $("#scheduleWeek").val("*");
     $("#scheduleHour").val("12");
@@ -167,8 +169,8 @@ function addScheduleButtonClick() {
 }
 function openScheduleModal(personId, scheduleId){
     console.log("--- openScheduleModal", personId, scheduleId);
-    $("#scheduleModalTitle").text = "Edit Schedule";
-    $("#scheduleSubmitButton").text = "Update";
+//    $("#scheduleModalTitle").text = "Edit Schedule";
+//    $("#scheduleSubmitButton").text = "Update";
     
     var person = data.people.find(function(item){
         return (item.id == personId);
