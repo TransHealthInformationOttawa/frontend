@@ -1,5 +1,5 @@
 
-function getPersonsSuccess(json) {
+function getPersonsSuccess_main(json) {
     
 
   data.people = json;
@@ -53,11 +53,29 @@ function addPersonSuccess(json) {
 
     $("#addPersonModal").modal('hide');
 
-    getPersons();
+    getPersons(null, null);
+}
+function addScheduleSuccess(json, personId) {
+
+    $("#scheduleModal").modal('hide');
+
+    getPersons(openScheduleList, personId);
+    
+    
+}
+function addMessageSuccess(json, personId) {
+
+    $("#messageModal").modal('hide');
+
+    getPersons(openMessageList, personId);
+        
+}
+function getMessagesSuccess(json) {
 }
 
+
 function addPersonFailed(error) {
-    alert("error: failed to add person.")
+    alert("error: failed to add person.");
 }
 
 function updatePersonSuccess(json) {
@@ -76,15 +94,8 @@ function deletePersonFailed(error) {
 
 }
 
-function getMessagesSuccess(json) {
-
-}
 
 function getMessagesFailed(error) {
-
-}
-
-function addMessageSuccess(json) {
 
 }
 

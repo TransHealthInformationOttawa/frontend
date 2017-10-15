@@ -1,4 +1,4 @@
-var API_URL = "https://someurl.com/"
+var API_URL = "https://inkfv9sdaa.execute-api.us-east-1.amazonaws.com/prod"
 
 function apiUrl(pathElements) {
   return API_URL + "/" + pathElements.join("/");
@@ -8,10 +8,22 @@ function apiUrl(pathElements) {
  * Makes a GET request to /people/
  * @constructor
  */
-function getPersons() {
+function getPersons(callback, personId) {
   $.getJSON(apiUrl(["people"]))
     .done(function(json) {
-      getPersonsSuccess(json);
+      
+      // *************************
+      console.log(" get personS success ")
+      
+      if (callback == null){
+          console.log ("main getpersonS success");
+        getPersonsSuccess_main(json);
+      } else {
+          console.log ("callback in getpersonS");
+          callback(personId);
+      }
+      
+      
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ", " + error;
@@ -116,7 +128,8 @@ function addMessage(personId, messageText) {
     data: JSON.stringify(messageObject(messageText))
   })
     .done(function(json) {
-      addMessageSuccess(json);
+      // propagating person id
+      addMessageSuccess(json, personId);
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ", " + error;
