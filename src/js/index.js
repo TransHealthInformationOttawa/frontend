@@ -135,9 +135,9 @@ function openScheduleList(personId) {
     });
     
     $(".editScheduleButton").click(function() {
-    var itemId = $("#scheduleListTitle").attr("personId");
-    openScheduleModal(itemId);
-  })
+        var itemId = $("#scheduleListTitle").attr("personId");
+        openScheduleModal(itemId);
+    })
 
 }
 
