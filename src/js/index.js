@@ -81,17 +81,24 @@ function openMessageList(personId){
     $("#messagesTable tbody").empty();
 
     person.messages.forEach(function(m){
-        $("#messagesTable tbody").append('<tr>'
+        $("#messagesTable tbody").append('<tr messageId="' + m.id + '">'
             + '<td>' + m.message + '</td>'
             + '<td>'
-                +'<button type="button" class="btn btn-success"> '
+                +'<button type="button" class="btn btn-default"> '
+                +'<span class="glyphicon glyphicon-pencil"></span> '
                 +'Edit'
             +'</button> '
-                +'<button type="button" class="btn btn-danger"> '
+                +'<button type="button" class="btn btn-danger deleteMessageButton"> '
+                +'<span class="glyphicon glyphicon-trash"></span> '
                 +'Delete'
             +'</button>'
             +'</td>'
         +'</tr>');
+    });
+
+    $(".deleteMessageButton").click(function() {
+        var messageId = $( this ).parent().parent().attr("messageId");
+        deleteMessage(personId, messageId);
     });
 }
 
@@ -113,7 +120,7 @@ function openScheduleList(personId) {
     $("#scheduleTable tbody").empty();
 
     person.schedules.forEach(function(s){
-        $("#scheduleTable tbody").append('<tr>'
+        $("#scheduleTable tbody").append('<tr scheduleId="' + s.id + '">'
             + '<td>' + s.year + '</td>'
             + '<td>' + s.dayOfWeek + '</td>'
             + '<td>' + s.month + '</td>'
@@ -121,10 +128,12 @@ function openScheduleList(personId) {
             + '<td>' + s.hour + '</td>'
             + '<td>' + s.minute + '</td>'
             + '<td>'
-                +'<button type="button" class="btn btn-success editScheduleButton"> '
+                +'<button type="button" class="btn btn-default editScheduleButton"> '
+                +'<span class="glyphicon glyphicon-pencil"></span> '
                 +'Edit'
             +'</button> '
-                +'<button type="button" class="btn btn-danger"> '
+                +'<button type="button" class="btn btn-danger deleteScheduleButton"> '
+                +'<span class="glyphicon glyphicon-trash"></span> '
                 +'Delete'
             +'</button>'
             +'</td>'
@@ -135,6 +144,11 @@ function openScheduleList(personId) {
     var itemId = $("#scheduleListTitle").attr("personId");
     openScheduleModal(itemId);
   })
+
+  $(".deleteScheduleButton").click(function() {
+    var scheduleId = $( this ).parent().parent().attr("scheduleId");
+    deleteSchedule(personId, scheduleId);
+});
 
 }
 
