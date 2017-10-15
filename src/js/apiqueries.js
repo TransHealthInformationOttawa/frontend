@@ -1,4 +1,4 @@
-var API_URL = "https://inkfv9sdaa.execute-api.us-east-1.amazonaws.com/prod"
+var API_URL = ""
 
 function apiUrl(pathElements) {
   return API_URL + "/" + pathElements.join("/");
@@ -109,8 +109,12 @@ function getMessages(personId) {
  * @param {string} messageText - The message to send.
  */
 function addMessage(personId, messageText) {
-  $.getJSON(apiUrl(["people", personId, "messages"]),
-    messageObject(messageText))
+  $.ajax({
+      method: "POST",
+      url: apiUrl(["people", personId, "messages"]),
+      contentType: 'application/json', 
+    data: JSON.stringify(messageObject(messageText))
+  })
     .done(function(json) {
       addMessageSuccess(json);
     })
@@ -118,6 +122,7 @@ function addMessage(personId, messageText) {
       var err = textStatus + ", " + error;
       addMessageFailed(error);
   });
+
 }
 
 /**

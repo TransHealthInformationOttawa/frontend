@@ -5,21 +5,61 @@ function submitPerson(){
     var phoneNumber = $("#addPersonPhoneNumber").val();
     var enabled = $("#addPersonEnableSend").is(":checked");
 
-    // todo - don't need enabled for edit
+    // todo - don't need checkbox except for edit
     
     addPerson(name, phoneNumber, [], []);
 }
 
 function submitSchedule(){
-    var week = $("#scheduleWeek").val();
+    var dayOfWeek = $("#scheduleWeek").val();
     var hour = $("#scheduleHour").val();
     var minute = $("#scheduleMinute").val();
-    console.log(week, hour, minute);
+    
+    var dayOfMonth = 0;
+    var month = 0;
+    var year = 0;
+    
+    var schedule = scheduleObject(year, dayOfWeek, month, dayOfMonth, hour, minute);
+//    console.log(schedule);
+    // using person update to affect schedule items
+    
+    var personId = $("#scheduleListTitle").attr("personId");
+
+    var person = data.people.find(function(item){
+        return (item.id == personId);
+    });
+    
+    person.schedules.push(schedule);
+    console.log(person);
+    
+    
+//    var tmp_data = {
+//        "hour": 17.0, "month": 10.0, "year": 2017.0, "dayOfMonth": "", "minute": 1.0
+//    };
+    
+    
+     $.ajax({
+      method: "POST",
+      url: apiUrl(["people", personId, "schedules"]),
+      contentType: 'application/json', 
+    data: JSON.stringify(schedule)
+  })
+    .done(function(json) {
+      console.log(json);
+//      addPersonSuccess(json);
+    })
+    .fail(function( jqxhr, textStatus, error ) {
+      var err = textStatus + ", " + error;
+//      addPersonFailed(error);
+         console.log(err);
+  });
 }
 
 function submitMessage(){
     var message = $("#messageTextField").val();
-    console.log(message);
+    
+    var personId = $("#messageListTitle").attr("personId");
+    addMessage(personId, message);
 }
 
 
@@ -33,7 +73,10 @@ function openMessageList(personId){
         return (item.id == personId);
     });
 
+    // note - putting person id in title's attributes
+
     $("#messageListTitle").text("List of Messages for " + person.name);
+    $("#messageListTitle").attr("personId", personId);
 
     $("#messagesTable tbody").empty();
 
@@ -62,6 +105,8 @@ function openScheduleList(personId) {
         return (item.id == personId);
     });
 
+    // note - putting person id in title's attributes
+    
     $("#scheduleListTitle").text("Schedule for " + person.name);
     $("#scheduleListTitle").attr("personId", personId);
 
@@ -113,5 +158,6 @@ function openScheduleModal(personId){
 $( document ).ready(function(){
    
     getPersons();
+    console.log(data);
 });
 
