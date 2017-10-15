@@ -180,3 +180,82 @@ function updateMessage(personId, messageId, messageText) {
       updateMessageFailed(err);
   });
 }
+
+/**
+ * Makes a GET request to /people/{id}/schedules
+ * @constructor
+ * @param {string} personId - The person's ID.
+ */
+function getSchedules(personId) {
+  $.getJSON(apiUrl(["people", personId, "schedules"]))
+    .done(function(json) {
+      getSchedulesSuccess(json);
+    })
+    .fail(function( jqxhr, textStatus, error ) {
+      var err = textStatus + ", " + error;
+      getSchedulesFailed(err);
+  });
+}
+
+/**
+ * Makes a POST request to /people/{id}/schedules
+ * @constructor
+ * @param {string} personId - The person's ID.
+ */
+function addSchedule(personId, year, dayOfWeek, month, dayOfMonth, hour, minute) {
+  $.ajax({
+      method: "POST",
+      url: apiUrl(["people", personId, "schedules"]),
+      contentType: 'application/json', 
+    data: JSON.stringify(
+      scheduleObject(year, dayOfWeek, month, dayOfMonth, hour, minute))
+  })
+    .done(function(json) {
+      addScheduleSuccess(json);
+    })
+    .fail(function( jqxhr, textStatus, error ) {
+      var err = textStatus + ", " + error;
+      addScheduleFailed(error);
+  });
+
+}
+
+/**
+ * Makes a DELETE request to /people/{id}/schedules/{schedule id}
+ * @constructor
+ * @param {string} personId - The person's ID.
+ * @param {string} scheduleId - The schedule's ID.
+ */
+function deleteSchedule(personId, scheduleId) {
+  $.ajax({
+    url: apiUrl(["people", personId, "schedules", scheduleId]),
+    type: 'DELETE',
+    success: function(json) {
+      deleteScheduleSuccess(json);
+    },
+    error: function( jqxhr, textStatus, error ) {
+      var err = textStatus + ", " + error;
+      deleteScheduleFailed(err);
+  }
+});
+}
+
+/**
+ * Makes a POST request to /people/{id}/schedules/{schedule id}
+ * @constructor
+ * @param {string} personId - The person's ID.
+ * @param {string} scheduleId - The schedule's ID.
+ * @param {string} scheduleText - The schedule's updated text.
+ */
+function updateSchedule(personId, scheduleId, 
+  year, dayOfWeek, month, dayOfMonth, hour, minute) {
+  $.getJSON(apiUrl(["people", personId, "schedules", scheduleId]),
+    scheduleObject(scheduleText))
+    .done(function(json) {
+      updateScheduleSuccess(json);
+    })
+    .fail(function( jqxhr, textStatus, error ) {
+      var err = textStatus + ", " + error;
+      updateScheduleFailed(err);
+  });
+}

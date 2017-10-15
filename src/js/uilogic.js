@@ -43,7 +43,7 @@ function getPersonsSuccess_main(json) {
 }
 
 function getPersonsFailed(error) {
-
+  toastr.error("Failed to get list of people: " + error);
 }
 
 function addPersonSuccess(json) {
@@ -72,7 +72,7 @@ function getMessagesSuccess(json) {
 
 
 function addPersonFailed(error) {
-    alert("error: failed to add person.");
+  toastr.error("Failed to add person: " + error);
 }
 
 function updatePersonSuccess(json) {
@@ -80,6 +80,7 @@ function updatePersonSuccess(json) {
 }
 
 function updatePersonFailed(error) {
+  toastr.error("Failed to update person: " + error);
 
 }
 
@@ -88,16 +89,16 @@ function deletePersonSuccess(json) {
 }
 
 function deletePersonFailed(error) {
-
+  toastr.error("Failed to delete person: " + error);
 }
 
 
 function getMessagesFailed(error) {
-
+  toastr.error("Failed to get messages: " + error);
 }
 
 function addMessageFailed(error) {
-
+  toastr.error("Failed to add message: " + error);
 }
 
 function deleteMessageSuccess(json) {
@@ -105,7 +106,7 @@ function deleteMessageSuccess(json) {
 }
 
 function deleteMessageFailed(error) {
-
+  toastr.error("Failed to delete message: " + error);
 }
 
 function updateMessageSuccess(json) {
@@ -113,5 +114,30 @@ function updateMessageSuccess(json) {
 }
 
 function updateMessageFailed(error) {
-  
+  toastr.error("Failed to update message: " + error);
+}
+
+
+function getSchedulesSuccess(json) {
+
+}
+
+function getSchedulesFailed(error) {
+  toastr.error("Failed to get schedules: " + error);
+}
+
+function addScheduleSuccess(json) {
+
+}
+
+function addScheduleFailed(error) {
+  toastr.error("Failed to add schedule: " + error);
+}
+
+function deleteScheduleSuccess(json) {
+
+}
+
+function deleteScheduleFailed(error) {
+  toastr.error("Failed to delete schedule: " + error);
 }
