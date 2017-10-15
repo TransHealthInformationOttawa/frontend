@@ -25,6 +25,7 @@ function getPersons(callback, personId) {
       } else {
           console.log ("callback in getpersonS");
           callback(personId);
+          getPersonsSuccess_main(json);
       }
       
       
