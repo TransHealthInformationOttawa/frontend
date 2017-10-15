@@ -179,7 +179,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Add Schedule</h4>
+              <h4 class="modal-title" id="scheduleModalTitle">Add Schedule</h4>
             </div>
             <div class="modal-body">
               <div class="form-group">
@@ -207,7 +207,7 @@
                   </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" onclick="submitSchedule()">
+              <button type="button" class="btn btn-primary" onclick="submitSchedule()" id="scheduleSubmitButton">
                 Add schedule
               </button>
               <button type="button" class="btn btn-secondary" 
@@ -251,7 +251,7 @@
   
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-primary btn-lg" 
-      data-toggle="modal" data-target="#scheduleModal">
+      data-toggle="modal" data-target="#scheduleModal" onclick="addScheduleButtonClick()">
         Add a New Schedule
       </button>
     </div>

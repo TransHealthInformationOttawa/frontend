@@ -25,14 +25,6 @@ function submitSchedule(){
     
     var personId = $("#scheduleListTitle").attr("personId");
 
-    var person = data.people.find(function(item){
-        return (item.id == personId);
-    });
-    
-    person.schedules.push(schedule);
-    console.log(person);
-    
-    
 //    var tmp_data = {
 //        "hour": 17.0, "month": 10.0, "year": 2017.0, "dayOfMonth": "", "minute": 1.0
 //    };
@@ -143,14 +135,15 @@ function openScheduleList(personId) {
     });
     
     $(".editScheduleButton").click(function() {
-        var itemId = $("#scheduleListTitle").attr("personId");
-        openScheduleModal(itemId);
+        //var itemId = $("#scheduleListTitle").attr("personId");
+        var scheduleId = $( this ).parent().parent().attr("scheduleId");
+        openScheduleModal(personId, scheduleId);
     })
 
-  $(".deleteScheduleButton").click(function() {
-    var scheduleId = $( this ).parent().parent().attr("scheduleId");
-    deleteSchedule(personId, scheduleId);
-});
+    $(".deleteScheduleButton").click(function() {
+        var scheduleId = $( this ).parent().parent().attr("scheduleId");
+        deleteSchedule(personId, scheduleId);
+    });
 
 }
 
@@ -163,9 +156,31 @@ function openPeopleList(){
 }
 
 
-
-function openScheduleModal(personId){
-    console.log(personId);
+function addScheduleButtonClick() {
+    console.log("--- addScheduleButtonClick");
+    $("#scheduleModalTitle").text = "Add Schedule";
+    $("#scheduleSubmitButton").text = "Add";
+    
+    $("#scheduleWeek").val("*");
+    $("#scheduleHour").val("12");
+    $("#scheduleMinute").val("00");
+}
+function openScheduleModal(personId, scheduleId){
+    console.log("--- openScheduleModal", personId, scheduleId);
+    $("#scheduleModalTitle").text = "Edit Schedule";
+    $("#scheduleSubmitButton").text = "Update";
+    
+    var person = data.people.find(function(item){
+        return (item.id == personId);
+    });
+    var schedule = person.schedules.find(function(item){
+        return (item.id == scheduleId);
+    });
+    $("#scheduleWeek").val(schedule.dayOfWeek);
+    $("#scheduleHour").val(schedule.hour);
+    $("#scheduleMinute").val(schedule.minute);
+    
+    $("#scheduleModal").modal('show');
 }
 
 
