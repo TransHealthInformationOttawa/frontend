@@ -45,8 +45,8 @@ function submitSchedule(){
     data: JSON.stringify(schedule)
   })
     .done(function(json) {
-      console.log(json);
-//      addPersonSuccess(json);
+         // propigating the person Id
+      addScheduleSuccess(json, personId);
     })
     .fail(function( jqxhr, textStatus, error ) {
       var err = textStatus + ", " + error;
@@ -64,6 +64,7 @@ function submitMessage(){
 
 
 function openMessageList(personId){
+    console.log ("open message list", personId);
     
     $("#peopleListPage").addClass("invisiblePage");
     $("#messageListPage").removeClass("invisiblePage");
@@ -103,6 +104,7 @@ function openMessageList(personId){
 }
 
 function openScheduleList(personId) {
+    console.log ("open message list", personId);
 
     $("#peopleListPage").addClass("invisiblePage");
     $("#messageListPage").addClass("invisiblePage");
@@ -172,7 +174,7 @@ function openScheduleModal(personId){
 
 $( document ).ready(function(){
    
-    getPersons();
+    getPersons(null, null);
     console.log(data);
 });
 

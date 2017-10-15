@@ -1,10 +1,7 @@
 
-function getPersonsSuccess(json) {
+function getPersonsSuccess_main(json) {
     
 
-  data.people = json;
-    
-    
   $("#peopleTable tbody").empty();
   
   json.forEach(function(item){
@@ -53,8 +50,26 @@ function addPersonSuccess(json) {
 
     $("#addPersonModal").modal('hide');
 
-    getPersons();
+    getPersons(null, null);
 }
+function addScheduleSuccess(json, personId) {
+
+    $("#scheduleModal").modal('hide');
+
+    getPersons(openScheduleList, personId);
+    
+    
+}
+function addMessageSuccess(json, personId) {
+
+    $("#messageModal").modal('hide');
+
+    getPersons(openMessageList, personId);
+        
+}
+function getMessagesSuccess(json) {
+}
+
 
 function addPersonFailed(error) {
   toastr.error("Failed to add person: " + error);
@@ -77,16 +92,9 @@ function deletePersonFailed(error) {
   toastr.error("Failed to delete person: " + error);
 }
 
-function getMessagesSuccess(json) {
-
-}
 
 function getMessagesFailed(error) {
   toastr.error("Failed to get messages: " + error);
-}
-
-function addMessageSuccess(json) {
-
 }
 
 function addMessageFailed(error) {
