@@ -48,7 +48,20 @@ function getPersonsSuccess_main(json) {
   $(".personDeleteButton").click(function() {
     var itemId = $( this ).parent().parent().attr("personId");
     deletePerson(itemId);
-});
+  });
+
+  $(".personEditButton").click(function() {
+    var itemId = $( this ).parent().parent().attr("personId");
+    var person = data.people.find(function(item){
+      return (item.id == itemId);
+  });
+  
+    $("#addPersonModal").modal();
+    $("#addPersonModal .modal-title").text("Edit Peer Supporter");
+    $("#addPersonModal .buttonAdd").text("Edit peer supporter");
+    $("#addPersonName").val(person.name);
+    $("#addPersonPhoneNumber").val(person.phone);
+  });
 }
 
 function getPersonsFailed(error) {
