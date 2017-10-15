@@ -1,1 +1,263 @@
-<meta http-equiv="refresh" content="0; url=./src/"/>
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Send Me Love</title>
+      <meta charset="UTF-8">
+      <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"> 
+      <script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
+      <link 
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+        rel="stylesheet" 
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+        crossorigin="anonymous">
+      <script 
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+        crossorigin="anonymous"></script>
+      <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css"
+        rel="stylesheet">
+      <script 
+        src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+      <script src="src/js/objects.js"></script>
+      <script src="src/js/apiqueries.js"></script>
+      <script src="src/js/uilogic.js"></script>
+      <script src="src/js/index.js"></script>
+      <style>
+          .invisiblePage {display: none;}
+      </style>
+  </head>
+  <body>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 style="font-family: 'Pacifico';">
+          Send Me Love
+          <span class="glyphicon glyphicon-heart" style="color:red"></span>
+        </h1>
+      </div>
+
+ <div id="peopleListPage">
+     
+      <!-- List people -->
+
+      <div class="panel panel-default">
+        <div class="panel-heading">List of Peer Supporters</div>
+      
+        <table class="table" id="peopleTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Phone Number</th>
+              <th>Enabled</th>
+              <th>Messages</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+
+    <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary btn-lg" 
+      data-toggle="modal" data-target="#addPersonModal">
+        Add Peer Supporter
+      </button>
+     
+           
+    <!-- Add or Edit a person -->
+      <div class="modal fade"  id="addPersonModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add Peer Supporter</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                  <label for="addPersonName">Name</label>
+                  <input type="text" class="form-control" 
+                    id="addPersonName"
+                    placeholder="Jane Smith">
+                </div>
+                <div class="form-group">
+                  <label for="addPersonPhoneNumber">Phone Number</label>
+                  <input type="text" class="form-control" 
+                  id="addPersonPhoneNumber" placeholder="+16135555555">
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" 
+                    id="addPersonEnableSend">
+                    Enable Messaging this Person
+                  </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary buttonAdd" onclick="submitPerson()">
+                Add peer supporter
+              </button>
+              <button type="button" class="btn btn-secondary" 
+                data-dismiss="modal">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</div>
+<div id="messageListPage" class="invisiblePage">
+<button type="button" class="btn btn-secondary" onclick="openPeopleList()"
+  style="margin-bottom: 1em;">
+   <span class="glyphicon glyphicon-arrow-left"></span>
+    List of Peer Supporters
+</button>
+      
+      
+       <!-- List messages -->
+
+       <div class="panel panel-default">
+          <div class="panel-heading" id="messageListTitle">List of Messages for 
+            <span id="listMessagesPersonName"></span>
+          </div>
+        
+          <table class="table" id="messagesTable">
+            <thead>
+              <tr>
+                <th>Message</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+
+     
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary btn-lg" 
+      data-toggle="modal" data-target="#messageModal">
+        Add a New Message
+      </button>
+
+
+       <!-- Add or Edit a message -->
+       <div class="modal fade"  id="messageModal">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Add Message</h4>
+              </div>
+              <div class="modal-body">
+                  <div class="form-group">
+                    <label for="messageTextField">Message</label>
+                    <textarea class="form-control" id="messageTextField"
+                    rows="3"></textarea>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="submitMessage()">
+                  Add message
+                </button>
+                <button type="button" class="btn btn-secondary" 
+                  data-dismiss="modal" id="messageModalCancel">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+     <!-- Add or Edit a schedule -->
+     <div class="modal fade"  id="scheduleModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="scheduleModalTitle">Add Schedule</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                  <label for="scheduleWeek" class="col-sm-2 control-label">Day of Week</label>
+                  <select class="form-control form-control-lg" id="scheduleWeek">
+                      <option value="*">Every Day</option>
+                      <option value="1">Monday</option>
+                      <option value="2">Tuesday</option>
+                      <option value="3">Wednesday</option>
+                      <option value="4">Thursday</option>
+                      <option value="5">Friday</option>
+                      <option value="6">Saturday</option>
+                      <option value="7">Sunday</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                      <label for="scheduleHour" class="col-sm-2 control-label">Hour</label>
+                      <input type="number" class="form-control" id="scheduleHour" 
+                        min="0" max="23" step="1" placeholder="0-23">
+                  </div>
+                  <div class="form-group">
+                      <label for="scheduleMinute" class="col-sm-2 control-label">Minute</label>
+                      <input type="number" class="form-control" id="scheduleMinute" 
+                        min="0" max="59" step="1" placeholder="0-59">
+                  </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" onclick="submitSchedule()" id="scheduleSubmitButton">
+                Add schedule
+              </button>
+              <button type="button" class="btn btn-secondary" 
+                data-dismiss="modal">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  <div id="scheduleListPage" class="invisiblePage">
+      
+    <button type="button" class="btn btn-secondary" onclick="openPeopleList()"
+      style="margin-bottom: 1em;">
+       <span class="glyphicon glyphicon-arrow-left"></span>
+        List of Peer Supporters
+    </button>
+
+    <div class="panel panel-default">
+        <div class="panel-heading" id="scheduleListTitle">Schedule for 
+          <span id="listMessagesPersonName"></span>
+        </div>
+      
+        <table class="table" id="scheduleTable">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Day of Week</th>
+              <th>Month</th>
+              <th>Day of Month</th>
+              <th>Hour</th>
+              <th>Minute</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary btn-lg" 
+      data-toggle="modal" data-target="#scheduleModal" onclick="addScheduleButtonClick()">
+        Add a New Schedule
+      </button>
+    </div>
+
+    </div>
+</div>
+ 
+  </body>
+</html>
