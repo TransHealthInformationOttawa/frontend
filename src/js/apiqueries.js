@@ -1,4 +1,4 @@
-var API_URL = ""
+var API_URL = "https://someurl.com/"
 
 function apiUrl(pathElements) {
   return API_URL + "/" + pathElements.join("/");
