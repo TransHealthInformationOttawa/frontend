@@ -1,4 +1,4 @@
-var API_URL = "someurl"
+var API_URL = "https://inkfv9sdaa.execute-api.us-east-1.amazonaws.com/prod"
 
 function apiUrl(pathElements) {
   return API_URL + "/" + pathElements.join("/");
@@ -27,10 +27,16 @@ function getPersons() {
  * @param {scheduleObject[]} schedules - The person's schedule for messages.
  * @param {messageObject[]} messages - The person's messages.
  */
+
 function addPerson(name, phoneNumber, schedules, messages) {
-  $.getJSON(apiUrl(["people"]), 
-    personObject(name, phoneNumber, schedules, messages))
+  $.ajax({
+      method: "POST",
+      url: apiUrl(["people"]),
+      contentType: 'application/json', 
+    data: JSON.stringify(personObject(name, phoneNumber, schedules, messages))
+  })
     .done(function(json) {
+      
       addPersonSuccess(json);
     })
     .fail(function( jqxhr, textStatus, error ) {

@@ -1,5 +1,10 @@
 
 function getPersonsSuccess(json) {
+    
+
+  data.people = json;
+    
+    
   $("#peopleTable tbody").empty();
   
   json.forEach(function(item){
@@ -11,7 +16,7 @@ function getPersonsSuccess(json) {
       
       $("#peopleTable tbody").append("<tr personId='" + item.id + "'><td>"+item.name+"</td>" +
           "<td>"+item.phone+"</td>" +
-          '<td><span class="glyphicon glyphicon-'+icon+'" aria-hidden="true"></span></td>' +
+          '<td><span class="glyphicon glyphicon-' + icon + '" aria-hidden="true"></span></td>' +
           '<td>'+item.messages.length+'</td>' +
           '<td>'+
               '<button type="button" class="btn btn-default personMessageButton">'+
@@ -46,10 +51,13 @@ function getPersonsFailed(error) {
 
 function addPersonSuccess(json) {
 
+    $("#addPersonModal").modal('hide');
+
+    getPersons();
 }
 
 function addPersonFailed(error) {
-
+    alert("error: failed to add person.")
 }
 
 function updatePersonSuccess(json) {

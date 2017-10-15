@@ -105,13 +105,14 @@
                 </div>
                 <div class="form-check">
                   <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input">
+                    <input type="checkbox" class="form-check-input" 
+                    id="addPersonEnableSend">
                     Enable Messaging this Person
                   </label>
                 </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">
+              <button type="button" class="btn btn-primary" onclick="submitPerson()">
                 Add peer supporter
               </button>
               <button type="button" class="btn btn-secondary" 
@@ -185,11 +186,11 @@
                   </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="btn btn-primary" onclick="submitMessage()">
                   Add message
                 </button>
                 <button type="button" class="btn btn-secondary" 
-                  data-dismiss="modal">
+                  data-dismiss="modal" id="messageModalCancel">
                   Cancel
                 </button>
               </div>
@@ -208,7 +209,7 @@
             <div class="modal-body">
               <div class="form-group">
                   <label for="scheduleWeek" class="col-sm-2 control-label">Day of Week</label>
-                  <select class="form-control form-control-lg">
+                  <select class="form-control form-control-lg" id="scheduleWeek">
                       <option value="*">Every Day</option>
                       <option value="1">Monday</option>
                       <option value="2">Tuesday</option>
@@ -231,7 +232,7 @@
                   </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">
+              <button type="button" class="btn btn-primary" onclick="submitSchedule()">
                 Add schedule
               </button>
               <button type="button" class="btn btn-secondary" 

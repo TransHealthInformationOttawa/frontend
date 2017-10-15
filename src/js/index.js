@@ -1,33 +1,27 @@
+var data = {people:[]};
 
-var globalPersonID = null;
+function submitPerson(){
+    var name = $("#addPersonName").val();
+    var phoneNumber = $("#addPersonPhoneNumber").val();
+    var enabled = $("#addPersonEnableSend").is(":checked");
 
+    // todo - don't need enabled for edit
+    
+    addPerson(name, phoneNumber, [], []);
+}
 
-var data = {
-   "people" : [
-      {
-         "id" : "string_id_1",
-         "name" : "Alice",
-         "lastMessageSent" : "<id of the last message sent>",
-         "enabled" : true,
-         "phone" : "+16135551212",
-         "schedule" : [{
-           "id" : "...",
-           "year": 1900,
-           "dayOfWeek": null,
-           "month": 1,
-           "dayOfMonth": 31,
-           "hour": 0,
-           "minute": 0
-         }],
-         "messages" : [
-            {
-              "id" : "...",
-              "message" : "You're awesome"
-            }
-         ]
-      }
-   ]
-};
+function submitSchedule(){
+    var week = $("#scheduleWeek").val();
+    var hour = $("#scheduleHour").val();
+    var minute = $("#scheduleMinute").val();
+    console.log(week, hour, minute);
+}
+
+function submitMessage(){
+    var message = $("#messageTextField").val();
+    console.log(message);
+}
+
 
 function openMessageList(personId){
     
@@ -69,10 +63,11 @@ function openScheduleList(personId) {
     });
 
     $("#scheduleListTitle").text("Schedule for " + person.name);
+    $("#scheduleListTitle").attr("personId", personId);
 
     $("#scheduleTable tbody").empty();
 
-    person.schedule.forEach(function(s){
+    person.schedules.forEach(function(s){
         $("#scheduleTable tbody").append('<tr>'
             + '<td>' + s.year + '</td>'
             + '<td>' + s.dayOfWeek + '</td>'
@@ -80,7 +75,7 @@ function openScheduleList(personId) {
             + '<td>' + s.hour + '</td>'
             + '<td>' + s.minute + '</td>'
             + '<td>'
-                +'<button type="button" class="btn btn-success"> '
+                +'<button type="button" class="btn btn-success editScheduleButton"> '
                 +'Edit'
             +'</button> '
                 +'<button type="button" class="btn btn-danger"> '
@@ -89,15 +84,31 @@ function openScheduleList(personId) {
             +'</td>'
         +'</tr>');
     });
+    
+    $(".editScheduleButton").click(function() {
+    var itemId = $("#scheduleListTitle").attr("personId");
+    openScheduleModal(itemId);
+  })
+
 }
 
-//function 
+
 
 function openPeopleList(){
     $("#peopleListPage").removeClass("invisiblePage");
     $("#messageListPage").addClass("invisiblePage");
     $("#scheduleListPage").addClass("invisiblePage");
 }
+
+
+
+function openScheduleModal(personId){
+    console.log(personId);
+}
+
+
+// ----------------------------------------------------------------------------
+// main
 
 $( document ).ready(function(){
    
